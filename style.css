@@ -1,0 +1,168 @@
+/* Hired.az — Precision Recruiter Design System CSS */
+
+:root {
+  --bg-canvas: #F8FAFC;
+  --surface-lowest: #FFFFFF;
+  --surface-low: #F1F5F9;
+  --border-gray: #E2E8F0;
+  --border-dark: #CBD5E1;
+  --primary-navy: #1E40AF;
+  --electric-blue: #2563EB;
+  --slate-blue: #3B82F6;
+  --emerald-qualified: #10B981;
+  --crimson-rejected: #EF4444;
+  --amber-warning: #F59E0B;
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-tertiary: #94A3B8;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Geist', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-canvas);
+  color: var(--text-primary);
+  min-height: 100vh;
+}
+
+/* Tabular numbers for monospaced metrics */
+.font-mono, td, .tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Material Symbols Outlined Icon alignment */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+  vertical-align: middle;
+  line-height: 1;
+  user-select: none;
+}
+
+.material-symbols-fill {
+  font-variation-settings: 'FILL' 1, 'wght: 500, 'GRAD' 0, 'opsz' 20;
+}
+
+/* High-Density Data Table Row Hover and Transitions */
+.candidate-row {
+  transition: background-color 100ms ease, border-color 100ms ease;
+}
+
+.candidate-row:hover {
+  background-color: #F8FAFC !important;
+}
+
+.candidate-row.selected {
+  background-color: #EFF6FF !important;
+  border-left: 2px solid var(--electric-blue);
+}
+
+/* High-density table cell adjustments */
+table th {
+  letter-spacing: 0.04em;
+  font-size: 11px;
+}
+
+table td {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-size: 12.5px;
+}
+
+/* Subtle sleek custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Status Badges */
+.badge-emerald {
+  color: #047857;
+  background-color: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.badge-crimson {
+  color: #B91C1C;
+  background-color: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.badge-amber {
+  color: #B45309;
+  background-color: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.badge-brand {
+  color: #1E40AF;
+  background-color: rgba(37, 99, 235, 0.1);
+  border: 1px solid rgba(37, 99, 235, 0.3);
+}
+
+/* Smooth Drawer & Modal transition animations */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in {
+  animation: slideInRight 200ms ease-out forwards;
+}
+
+/* Navigation Drawer Transitions */
+#navDrawer {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#navDrawerOverlay {
+  transition: opacity 0.25s ease-in-out;
+}
+
+/* Pulse indicator dot */
+@keyframes pulseDot {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.2);
+  }
+}
+
+.pulse-dot {
+  animation: pulseDot 2s infinite ease-in-out;
+}
+
+/* Pricing Card Highlights */
+.pricing-card-featured {
+  position: relative;
+  border: 2px solid #2563EB;
+  box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.15), 0 8px 10px -6px rgba(37, 99, 235, 0.1);
+}

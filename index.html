@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="az" class="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Hired.az — B2B HR Süni İntellekt Ekranlaşdırma Platforması</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+              950: '#172554',
+            },
+            canvas: '#F8FAFC',
+            surface: '#FFFFFF',
+            subtle: '#F1F5F9',
+            borderGray: '#E2E8F0',
+            borderDark: '#CBD5E1',
+            textPrimary: '#0F172A',
+            textSecondary: '#475569',
+            textTertiary: '#94A3B8',
+          },
+          fontFamily: {
+            sans: ['Geist', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-canvas text-textPrimary font-sans antialiased min-h-screen flex flex-col selection:bg-brand-100 selection:text-brand-900">
+
+  <!-- ========================================================= -->
+  <!-- COLLAPSIBLE NAVIGATION DRAWER (HAMBURGER SLIDE-OUT)       -->
+  <!-- ========================================================= -->
+  <div id="navDrawerOverlay" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 opacity-0 pointer-events-none transition-opacity duration-200"></div>
+
+  <aside id="navDrawer" class="fixed top-0 left-0 bottom-0 w-80 sm:w-88 bg-surface border-r border-borderGray z-50 shadow-2xl flex flex-col -translate-x-full transition-transform duration-200 ease-in-out">
+
+    <!-- Drawer Header -->
+    <div class="h-16 px-4 border-b border-borderGray flex items-center justify-between bg-subtle/50">
+      <div class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-lg bg-brand-800 text-white flex items-center justify-center font-black shadow-xs">
+          <span class="material-symbols-outlined text-[19px]">smart_toy</span>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-extrabold text-base tracking-tight text-brand-900 leading-none">Hired.az</span>
+          <span class="text-[10.5px] font-medium text-brand-700 leading-tight">B2B HR Ekranlaşdırma</span>
+        </div>
+      </div>
+      <button id="closeNavDrawerBtn" class="w-8 h-8 rounded-lg hover:bg-slate-200 text-textSecondary flex items-center justify-center transition-colors">
+        <span class="material-symbols-outlined text-[20px]">close</span>
+      </button>
+    </div>
+
+    <!-- Corporate Info Card inside Drawer -->
+    <div class="p-4 border-b border-borderGray bg-canvas">
+      <div class="flex items-center justify-between mb-1.5">
+        <span class="text-[10px] uppercase font-mono font-semibold text-textTertiary">Aktiv Korporativ Şirkət</span>
+        <button id="drawerEditCompanyBtn" class="text-[10px] text-brand-600 font-semibold hover:underline flex items-center gap-0.5">
+          <span class="material-symbols-outlined text-[12px]">edit</span>
+          <span>Dəyiş</span>
+        </button>
+      </div>
+      <div class="p-2.5 bg-surface border border-borderGray rounded-lg flex items-center gap-2.5 shadow-xs">
+        <div class="w-9 h-9 rounded-md bg-brand-50 text-brand-700 border border-brand-200 flex items-center justify-center font-bold text-xs shrink-0" id="drawerCompanyAvatar">
+          SC
+        </div>
+        <div class="min-w-0 flex-1">
+          <h4 class="text-xs font-bold text-textPrimary truncate" id="drawerCompanyName">SOCAR Enerji QSC</h4>
+          <div class="flex items-center gap-1.5 mt-0.5 text-[10.5px] text-textSecondary">
+            <span class="font-mono" id="drawerCompanyVoen">VÖEN: 1402948191</span>
+            <span>•</span>
+            <span class="text-brand-600 font-medium" id="drawerCompanyPlan">Pro</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section Navigation Links -->
+    <div class="flex-1 overflow-y-auto p-3 space-y-1">
+      <div class="px-2 py-1.5 text-[10px] uppercase font-mono font-bold text-textTertiary tracking-wider">
+        Əsas Bölmələr
+      </div>
+
+      <button id="drawerLinkActive" class="w-full px-3 py-2.5 rounded-lg text-xs font-semibold flex items-center justify-between transition-colors bg-brand-50 text-brand-900 border border-brand-200/60">
+        <div class="flex items-center gap-2.5">
+          <span class="material-symbols-outlined text-[18px] text-brand-600">person_check</span>
+          <span>Aktiv Namizədlər</span>
+        </div>
+        <span id="drawerBadgeActive" class="px-2 py-0.5 rounded-full bg-brand-200 text-brand-900 font-mono text-[10px] font-bold">42</span>
+      </button>
+
+      <button id="drawerLinkEliminated" class="w-full px-3 py-2.5 rounded-lg text-xs font-medium text-textSecondary hover:text-textPrimary hover:bg-subtle flex items-center justify-between transition-colors">
+        <div class="flex items-center gap-2.5">
+          <span class="material-symbols-outlined text-[18px] text-rose-600">security</span>
+          <span>Eliminə Olunanlar / Botlar</span>
+        </div>
+        <span id="drawerBadgeEliminated" class="px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 font-mono text-[10px] font-bold">18</span>
+      </button>
+
+      <button id="drawerLinkArchive" class="w-full px-3 py-2.5 rounded-lg text-xs font-medium text-textSecondary hover:text-textPrimary hover:bg-subtle flex items-center justify-between transition-colors">
+        <div class="flex items-center gap-2.5">
+          <span class="material-symbols-outlined text-[18px] text-amber-600">inventory_2</span>
+          <span>Ümumi Arxiv</span>
+        </div>
+        <span id="drawerBadgeArchive" class="px-2 py-0.5 rounded-full bg-slate-200 text-slate-700 font-mono text-[10px] font-medium">156</span>
+      </button>
+
+      <div class="pt-3 px-2 py-1.5 text-[10px] uppercase font-mono font-bold text-textTertiary tracking-wider">
+        Maliyyə & Abunəlik
+      </div>
+
+      <button id="drawerLinkPricing" class="w-full px-3 py-2.5 rounded-lg text-xs font-medium text-textSecondary hover:text-textPrimary hover:bg-subtle flex items-center justify-between transition-colors">
+        <div class="flex items-center gap-2.5">
+          <span class="material-symbols-outlined text-[18px] text-brand-700">loyalty</span>
+          <span>Paketlər / Tariflər</span>
+        </div>
+        <span class="px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[9.5px] font-bold">Yeni</span>
+      </button>
+
+      <div class="pt-3 px-2 py-1.5 text-[10px] uppercase font-mono font-bold text-textTertiary tracking-wider">
+        Süni İntellekt Konfiqurasiyası
+      </div>
+
+      <button id="drawerGeminiKeyBtn" class="w-full px-3 py-2.5 rounded-lg text-xs font-medium text-textSecondary hover:text-textPrimary hover:bg-subtle flex items-center justify-between transition-colors">
+        <div class="flex items-center gap-2.5">
+          <span class="material-symbols-outlined text-[18px] text-indigo-600">key</span>
+          <span>Gemini API Açarı</span>
+        </div>
+        <span id="drawerGeminiStatus" class="w-2 h-2 rounded-full bg-emerald-500"></span>
+      </button>
+
+    </div>
+
+    <!-- Drawer Footer -->
+    <div class="p-4 border-t border-borderGray bg-subtle/70 text-xs text-textSecondary space-y-2">
+      <div class="flex items-center gap-2 text-[11px] text-textSecondary">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span>Baku Screening Engine: 6 Filial Aktivdir</span>
+      </div>
+      <button id="drawerAuthModalBtn" class="w-full py-2 rounded-lg bg-surface border border-borderGray hover:bg-white text-textPrimary font-semibold text-xs flex items-center justify-center gap-1.5 shadow-xs transition-colors">
+        <span class="material-symbols-outlined text-[16px]">domain</span>
+        <span>Şirkət Qeydiyyatı / VÖEN Dəyiş</span>
+      </button>
+    </div>
+
+  </aside>
+
+  <!-- ========================================================= -->
+  <!-- TOP GLOBAL HEADER BAR                                     -->
+  <!-- ========================================================= -->
+  <header class="sticky top-0 z-40 bg-surface/95 backdrop-blur border-b border-borderGray">
+    <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-14 sm:h-16 gap-3">
+
+        <!-- Left: Hamburger Toggle & Logo -->
+        <div class="flex items-center gap-2.5 sm:gap-3 shrink-0">
+          <button id="hamburgerBtn" class="w-9 h-9 rounded-lg border border-borderGray bg-surface hover:bg-subtle flex items-center justify-center text-textPrimary hover:text-brand-800 transition-colors shadow-xs" title="Naviqasiya Menyu">
+            <span class="material-symbols-outlined text-[22px]">menu</span>
+          </button>
+
+          <div class="flex items-center gap-2 cursor-pointer" id="logoClickHome">
+            <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-brand-800 text-white flex items-center justify-center font-black tracking-tighter text-lg shadow-sm">
+              <span class="material-symbols-outlined text-[20px] text-white">smart_toy</span>
+            </div>
+            <div class="flex flex-col">
+              <span class="font-extrabold text-base sm:text-lg tracking-tight text-brand-900 leading-none">Hired.az</span>
+              <span class="text-[11px] sm:text-xs font-medium text-brand-700 leading-tight">HR Süni İntellekt Ekranlaşdırma Platforması</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Center: Quick Global Status Strip (Desktop) -->
+        <div class="hidden xl:flex items-center text-xs text-textSecondary bg-subtle px-3 py-1.5 rounded-md border border-borderGray gap-2">
+          <span class="material-symbols-outlined text-[15px] text-emerald-600">verified</span>
+          <span>Baku AI Screening Hub: Real-vaxt temp-mail, bot & geo-analiz aktivdir</span>
+        </div>
+
+        <!-- Right: Corporate Profile Area & Subscription Tier -->
+        <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+          <div class="hidden sm:flex flex-col items-end text-right">
+            <div class="flex items-center gap-1.5">
+              <span class="text-xs font-semibold text-textPrimary" id="topbarCompanyName">SOCAR Enerji QSC</span>
+              <span class="px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 font-mono text-[10px] font-medium border border-slate-200" id="topbarCompanyVoen">
+                VÖEN: 1402948191
+              </span>
+            </div>
+            <div class="flex items-center gap-1 mt-0.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span class="text-[11px] font-semibold text-brand-600" id="topbarCompanyPlan">Pro Paket (Aktiv)</span>
+              <span class="text-[10px] text-textTertiary" id="topbarCompanyBranches">• 12 filial</span>
+            </div>
+          </div>
+
+          <button id="openPricingBtn" class="h-8 px-2.5 sm:px-3 rounded bg-brand-600 hover:bg-brand-700 text-white font-medium text-xs flex items-center gap-1.5 transition-all shadow-sm active:scale-95" title="Paketlər və Tariflər">
+            <span class="material-symbols-outlined text-[15px]">bolt</span>
+            <span class="hidden sm:inline">Paketlər</span>
+            <span class="sm:hidden">Tarif</span>
+          </button>
+
+          <button id="openAuthModalBtn" class="h-8 px-2.5 sm:px-3 rounded border border-borderGray bg-white hover:bg-subtle text-textSecondary hover:text-textPrimary font-medium text-xs flex items-center gap-1.5 transition-colors shadow-xs" title="Şirkət Qeydiyyatı və Giriş">
+            <span class="material-symbols-outlined text-[16px]">domain</span>
+            <span class="hidden md:inline">Qeydiyyat / VÖEN</span>
+          </button>
+
+          <button id="openGeminiKeyHeaderBtn" class="w-8 h-8 rounded-lg border border-borderGray bg-surface hover:bg-subtle flex items-center justify-center text-textSecondary hover:text-indigo-600 transition-colors" title="Gemini API Açarı">
+            <span class="material-symbols-outlined text-[18px]">key</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- Sub-Header: Bento Metrics Overview Strip -->
+  <section class="bg-surface border-b border-borderGray">
+    <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-3">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3.5">
+
+        <!-- Bento 1 -->
+        <div class="bg-canvas border border-borderGray rounded-lg p-2.5 sm:p-3 flex items-center justify-between cursor-pointer hover:border-brand-500 transition-colors" id="bentoCardActive">
+          <div>
+            <div class="text-[11px] text-textSecondary font-medium flex items-center gap-1">
+              <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+              Aktiv Yoxlanmışlar
+            </div>
+            <div class="flex items-baseline gap-1.5 mt-0.5">
+              <span id="metricVerifiedCount" class="font-mono text-lg sm:text-xl font-bold text-textPrimary">42</span>
+              <span class="text-[11px] text-emerald-600 font-semibold">+6 yeni</span>
+            </div>
+          </div>
+          <div class="w-8 h-8 rounded bg-emerald-50 text-emerald-600 flex items-center justify-center">
+            <span class="material-symbols-outlined text-[18px]">verified_user</span>
+          </div>
+        </div>
+
+        <!-- Bento 2 -->
+        <div class="bg-canvas border border-borderGray rounded-lg p-2.5 sm:p-3 flex items-center justify-between cursor-pointer hover:border-rose-500 transition-colors" id="bentoCardEliminated">
+          <div>
+            <div class="text-[11px] text-textSecondary font-medium flex items-center gap-1">
+              <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+              Bloklanmış Botlar & Saxta
+            </div>
+            <div class="flex items-baseline gap-1.5 mt-0.5">
+              <span id="metricBotCount" class="font-mono text-lg sm:text-xl font-bold text-rose-600">18</span>
+              <span class="text-[11px] text-rose-700 bg-rose-50 px-1 py-0.2 rounded font-mono">100% təmiz</span>
+            </div>
+          </div>
+          <div class="w-8 h-8 rounded bg-rose-50 text-rose-600 flex items-center justify-center">
+            <span class="material-symbols-outlined text-[18px]">security</span>
+          </div>
+        </div>
+
+        <!-- Bento 3 -->
+        <div class="bg-canvas border border-borderGray rounded-lg p-2.5 sm:p-3 flex items-center justify-between">
+          <div>
+            <div class="text-[11px] text-textSecondary font-medium flex items-center gap-1">
+              <span class="w-2 h-2 rounded-full bg-brand-500"></span>
+              AI Orta Güvən Skoru
+            </div>
+            <div class="flex items-baseline gap-1.5 mt-0.5">
+              <span class="font-mono text-lg sm:text-xl font-bold text-brand-700">96.4%</span>
+              <span class="text-[11px] text-textTertiary font-medium">Baku Hub</span>
+            </div>
+          </div>
+          <div class="w-8 h-8 rounded bg-brand-50 text-brand-600 flex items-center justify-center">
+            <span class="material-symbols-outlined text-[18px]">psychology</span>
+          </div>
+        </div>
+
+        <!-- Bento 4 -->
+        <div class="bg-canvas border border-borderGray rounded-lg p-2.5 sm:p-3 flex items-center justify-between cursor-pointer hover:border-amber-500 transition-colors" id="bentoCardArchive">
+          <div>
+            <div class="text-[11px] text-textSecondary font-medium flex items-center gap-1">
+              <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+              Ümumi Arxiv / Tarixçə
+            </div>
+            <div class="flex items-baseline gap-1.5 mt-0.5">
+              <span id="metricArchiveCount" class="font-mono text-lg sm:text-xl font-bold text-textPrimary">156</span>
+              <span class="text-[11px] text-textTertiary">CV qeydi</span>
+            </div>
+          </div>
+          <div class="w-8 h-8 rounded bg-amber-50 text-amber-600 flex items-center justify-center">
+            <span class="material-symbols-outlined text-[18px]">inventory_2</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================= -->
+  <!-- MAIN CANDIDATE MANAGEMENT SECTION                         -->
+  <!-- ========================================================= -->
+  <main id="candidatesSection" class="flex-1 max-w-[1600px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5 flex flex-col gap-4">
+
+    <!-- Navigation Tabs Bar -->
+    <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 border-b border-borderGray pb-2">
+      <!-- Tabs -->
+      <nav class="flex items-center gap-1 overflow-x-auto no-scrollbar bg-slate-100 p-1 rounded-lg border border-borderGray">
+        <button id="tabActive" class="tab-btn px-3 py-1.5 rounded-md text-xs font-semibold flex items-center gap-2 transition-all bg-white text-brand-800 shadow-sm" data-tab="active">
+          <span>Aktiv Namizədlər</span>
+          <span id="tabCountActive" class="px-1.5 py-0.2 rounded-full bg-brand-100 text-brand-800 font-mono text-[10px] font-bold">42</span>
+        </button>
+        <button id="tabEliminated" class="tab-btn px-3 py-1.5 rounded-md text-xs font-medium flex items-center gap-2 transition-all text-textSecondary hover:text-textPrimary" data-tab="eliminated">
+          <span>Eliminə Olunanlar / Botlar</span>
+          <span id="tabCountEliminated" class="px-1.5 py-0.2 rounded-full bg-rose-100 text-rose-800 font-mono text-[10px] font-bold">18</span>
+        </button>
+        <button id="tabArchive" class="tab-btn px-3 py-1.5 rounded-md text-xs font-medium flex items-center gap-2 transition-all text-textSecondary hover:text-textPrimary" data-tab="archive">
+          <span>Ümumi Arxiv</span>
+          <span id="tabCountArchive" class="px-1.5 py-0.2 rounded-full bg-slate-200 text-slate-700 font-mono text-[10px] font-medium">156</span>
+        </button>
+      </nav>
+
+      <!-- Right Action Shortcuts: Manual Mode & Filter Reset -->
+      <div class="flex items-center gap-2 self-end sm:self-auto">
+        <button id="manualEditModeToggle" class="h-8 px-2.5 rounded border border-borderGray bg-white hover:bg-subtle text-textSecondary font-medium text-xs flex items-center gap-1.5 transition-colors">
+          <span class="material-symbols-outlined text-[15px] text-textSecondary">tune</span>
+          <span id="manualModeLabel">Manual Düzəliş Rejimi: Qapalı</span>
+        </button>
+        <button id="resetAllFiltersBtn" class="h-8 px-2 rounded border border-borderGray bg-white hover:bg-subtle text-textTertiary hover:text-textPrimary text-xs flex items-center gap-1 transition-colors" title="Filtrləri sıfırla">
+          <span class="material-symbols-outlined text-[15px]">restart_alt</span>
+          <span class="hidden md:inline">Sıfırla</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Filter & Control Toolbar -->
+    <section class="bg-surface border border-borderGray rounded-lg p-3 sm:p-4 shadow-sm flex flex-col gap-3">
+
+      <!-- Top Row: Search Input + Main Action Buttons -->
+      <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-2.5">
+
+        <!-- Search Input with Keyboard Shortcut -->
+        <div class="relative flex-1">
+          <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[18px] text-textTertiary pointer-events-none">search</span>
+          <input
+            type="search"
+            id="searchInput"
+            class="w-full h-9 pl-9 pr-14 rounded-md border border-borderGray bg-canvas text-textPrimary placeholder:text-textTertiary text-xs sm:text-sm focus:outline-none focus:border-brand-600 focus:ring-1 focus:ring-brand-600 transition-all font-sans"
+            placeholder="Namizədləri ada, vəzifəyə, filial və ya əlaqə nömrəsinə görə axtar..."
+          />
+          <kbd class="hidden sm:inline-flex items-center absolute right-2.5 top-1/2 -translate-y-1/2 px-1.5 py-0.5 rounded bg-surface border border-borderGray text-[10px] font-mono text-textTertiary shadow-xs">
+            ⌘K
+          </kbd>
+        </div>
+
+        <!-- Action Buttons: Toplu CV, Excel Export -->
+        <div class="flex items-center gap-2 shrink-0 flex-wrap">
+          <button id="openBulkUploadBtn" class="h-9 px-3 rounded bg-brand-800 hover:bg-brand-900 text-white font-medium text-xs flex items-center gap-1.5 shadow-sm transition-all active:scale-95">
+            <span class="material-symbols-outlined text-[16px]">upload_file</span>
+            <span>+ Toplu CV Yüklə (PDF/Word)</span>
+          </button>
+
+          <button id="exportExcelBtn" class="h-9 px-3 rounded border border-borderGray bg-white hover:bg-subtle text-textSecondary hover:text-textPrimary font-medium text-xs flex items-center gap-1.5 transition-colors shadow-xs">
+            <span class="material-symbols-outlined text-[16px] text-emerald-600">table_chart</span>
+            <span>Excel-ə İxrac Et (.xlsx)</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Bottom Row: Dynamic Dropdown Filters -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 border-t border-borderGray/70">
+
+        <!-- Work Mode Dropdown -->
+        <div class="flex flex-col gap-1">
+          <label class="text-[10px] font-semibold text-textTertiary uppercase tracking-wider">İş Rejimi</label>
+          <select id="filterWorkMode" class="h-8 px-2 rounded border border-borderGray bg-canvas text-xs text-textSecondary focus:border-brand-600 focus:outline-none">
+            <option value="all">Hamısı</option>
+            <option value="Tam ştat">Tam ştat (Full-time)</option>
+            <option value="Yarımştat">Yarımştat (Part-time)</option>
+            <option value="Uzaqdan">Uzaqdan (Remote)</option>
+            <option value="Hibrid">Hibrid</option>
+          </select>
+        </div>
+
+        <!-- Branch / Geo-Matching Dropdown -->
+        <div class="flex flex-col gap-1">
+          <label class="text-[10px] font-semibold text-textTertiary uppercase tracking-wider flex items-center justify-between">
+            <span>Filial / Məkan</span>
+            <span class="text-brand-600 font-mono text-[9px] lowercase">avto-geo</span>
+          </label>
+          <select id="filterBranch" class="h-8 px-2 rounded border border-borderGray bg-canvas text-xs text-textSecondary focus:border-brand-600 focus:outline-none">
+            <option value="all">Bütün Filiallar (Bakı)</option>
+            <option value="Nərimanov Filialı">Nərimanov Filialı</option>
+            <option value="Nizami Filialı">Nizami Filialı</option>
+            <option value="Gənclik Filialı">Gənclik Filialı</option>
+            <option value="28 May Filialı">28 May Filialı</option>
+            <option value="Yasamal Filialı">Yasamal Filialı</option>
+            <option value="Sahil Filialı">Sahil Filialı</option>
+          </select>
+        </div>
+
+        <!-- Education Level Dropdown -->
+        <div class="flex flex-col gap-1">
+          <label class="text-[10px] font-semibold text-textTertiary uppercase tracking-wider">Təhsil Səviyyəsi</label>
+          <select id="filterEducation" class="h-8 px-2 rounded border border-borderGray bg-canvas text-xs text-textSecondary focus:border-brand-600 focus:outline-none">
+            <option value="all">Hamısı</option>
+            <option value="Ali">Ali (Bakalavr)</option>
+            <option value="Magistr">Magistratura</option>
+            <option value="Orta-ixtisas">Orta-ixtisas / Kollec</option>
+            <option value="Doktorantura">Doktorantura / PhD</option>
+          </select>
+        </div>
+
+        <!-- Experience Duration Dropdown -->
+        <div class="flex flex-col gap-1">
+          <label class="text-[10px] font-semibold text-textTertiary uppercase tracking-wider">Təcrübə Müddəti</label>
+          <select id="filterExperience" class="h-8 px-2 rounded border border-borderGray bg-canvas text-xs text-textSecondary focus:border-brand-600 focus:outline-none">
+            <option value="all">Hamısı</option>
+            <option value="0-1">1 ilə qədər (Junior)</option>
+            <option value="1-3">1 - 3 il (Middle-)</option>
+            <option value="3-5">3 - 5 il (Middle+)</option>
+            <option value="5+">5+ il (Senior/Lead)</option>
+          </select>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- Batch Selection Bar -->
+    <div id="batchActionBar" class="hidden bg-brand-900 text-white px-4 py-2 rounded-lg shadow-md flex items-center justify-between gap-3 text-xs animate-in fade-in duration-150">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-[16px] text-brand-300">check_circle</span>
+        <span>Seçilmiş namizədlər: <strong id="batchSelectedCount" class="font-mono">0</strong> nəfər</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <button id="batchApproveBtn" class="px-2.5 py-1 rounded bg-emerald-600 hover:bg-emerald-700 text-white font-medium flex items-center gap-1 transition-colors">
+          <span class="material-symbols-outlined text-[14px]">done_all</span>
+          <span>Toplu Təsdiq</span>
+        </button>
+        <button id="batchArchiveBtn" class="px-2.5 py-1 rounded bg-brand-700 hover:bg-brand-600 text-white font-medium flex items-center gap-1 transition-colors">
+          <span class="material-symbols-outlined text-[14px]">inventory_2</span>
+          <span>Arxivlə</span>
+        </button>
+        <button id="batchDeleteBtn" class="px-2.5 py-1 rounded bg-rose-600 hover:bg-rose-700 text-white font-medium flex items-center gap-1 transition-colors">
+          <span class="material-symbols-outlined text-[14px]">delete</span>
+          <span>Sil</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Core View: Compact High-Density Data Table -->
+    <section class="bg-surface border border-borderGray rounded-lg shadow-sm overflow-hidden flex flex-col flex-1">
+
+      <!-- Table Header Status Strip -->
+      <div class="px-4 py-2.5 bg-subtle/70 border-b border-borderGray flex items-center justify-between text-xs text-textSecondary">
+        <div class="flex items-center gap-2">
+          <span id="tableTitle" class="font-semibold text-textPrimary uppercase tracking-wider text-[11px]">Aktiv Yoxlanmış Namizədlər Siyahısı</span>
+          <span class="text-borderDark">•</span>
+          <span id="filteredResultsCount" class="font-mono text-textTertiary">42 nəticə tapıldı</span>
+        </div>
+        <div class="flex items-center gap-2 text-[11px] text-textTertiary">
+          <span class="material-symbols-outlined text-[14px]">sort</span>
+          <span>Sıralama: Ən son müraciət</span>
+        </div>
+      </div>
+
+      <!-- High-Density Desktop Table Container -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead>
+            <tr class="bg-subtle text-textSecondary uppercase font-mono text-[10.5px] tracking-wider border-b border-borderGray select-none">
+              <th class="py-2.5 px-3 w-8 text-center">
+                <input type="checkbox" id="selectAllCheckbox" class="w-3.5 h-3.5 rounded border-borderDark text-brand-600 accent-brand-600 cursor-pointer" />
+              </th>
+              <th class="py-2.5 px-3 font-semibold min-w-[200px]">Namizəd & Əlaqə</th>
+              <th class="py-2.5 px-3 font-semibold min-w-[160px]">Hədəf Filial (Geo-Match)</th>
+              <th class="py-2.5 px-3 font-semibold min-w-[110px]">İş Rejimi</th>
+              <th class="py-2.5 px-3 font-semibold min-w-[150px]">Təhsil & Təcrübə</th>
+              <th class="py-2.5 px-3 font-semibold min-w-[160px]">AI Güvən Skoru</th>
+              <th class="py-2.5 px-3 font-semibold min-w-[120px]">Qərar Statusu</th>
+              <th class="py-2.5 px-3 font-semibold text-right min-w-[150px]">HR Əməliyyatları</th>
+            </tr>
+          </thead>
+          <tbody id="candidatesTableBody" class="divide-y divide-borderGray font-sans">
+            <!-- Dynamic Rows will be rendered by script.js -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Empty State Container -->
+      <div id="tableEmptyState" class="hidden py-16 flex flex-col items-center justify-center text-center px-4">
+        <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-textTertiary mb-3">
+          <span class="material-symbols-outlined text-[24px]">search_off</span>
+        </div>
+        <h4 class="text-sm font-semibold text-textPrimary">Seçilmiş filtrlərə uyğun namizəd tapılmadı</h4>
+        <p class="text-xs text-textSecondary mt-1 max-w-sm">Axtarış sorğusunu dəyişdirin və ya filtrləri sıfırlayaraq bütün bazaya yenidən baxın.</p>
+        <button id="emptyStateResetBtn" class="mt-3 px-3 py-1.5 rounded bg-brand-800 text-white text-xs font-medium hover:bg-brand-900 transition-colors">
+          Filtrləri Sıfırla
+        </button>
+      </div>
+
+      <!-- Pagination / Footer Bar -->
+      <div class="px-4 py-2.5 bg-subtle/50 border-t border-borderGray flex items-center justify-between text-xs text-textSecondary">
+        <div class="text-[11px]">
+          Göstərilir: <span id="paginationRange" class="font-mono font-medium text-textPrimary">1-8</span> / <span id="paginationTotal" class="font-mono">8</span>
+        </div>
+        <div class="flex items-center gap-1">
+          <button class="px-2 py-1 rounded border border-borderGray bg-white text-textSecondary hover:bg-subtle disabled:opacity-40 text-xs" disabled>
+            Əvvəlki
+          </button>
+          <button class="px-2.5 py-1 rounded bg-brand-800 text-white font-medium text-xs">1</button>
+          <button class="px-2.5 py-1 rounded border border-borderGray bg-white text-textSecondary hover:bg-subtle text-xs">2</button>
+          <button class="px-2 py-1 rounded border border-borderGray bg-white text-textSecondary hover:bg-subtle text-xs">
+            Növbəti
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ========================================================= -->
+  <!-- REDESIGNED PRICING & PACKAGES SECTION                     -->
+  <!-- ========================================================= -->
+  <main id="pricingSection" class="hidden flex-1 max-w-[1400px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 flex-col gap-6">
+
+    <!-- Pricing Header -->
+    <div class="text-center max-w-2xl mx-auto space-y-2">
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-50 border border-brand-200 text-brand-700 text-xs font-semibold">
+        <span class="material-symbols-outlined text-[15px]">verified</span>
+        <span>Azərbaycan Korporativ B2B Tarifləri</span>
+      </div>
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-textPrimary tracking-tight">
+        Şirkətinizin Miqyasına Uyğun Şəffaf Abunəlik
+      </h2>
+      <p class="text-xs sm:text-sm text-textSecondary">
+        VÖEN əsaslı korporativ müqavilə, limitsiz AI təhlili və Bakı filiallarının avtomatik xəritələndirilməsi.
+      </p>
+    </div>
+
+    <!-- Pricing Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4 items-stretch">
+
+      <!-- Plan 1: Starter -->
+      <div class="bg-surface border border-borderGray rounded-2xl p-6 flex flex-col justify-between shadow-xs hover:shadow-md transition-shadow">
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider text-textTertiary font-mono">Kiçik Şirkətlər</span>
+            <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[10.5px] font-semibold">Başlanğıc</span>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-textPrimary">Starter Paket</h3>
+            <p class="text-xs text-textSecondary mt-1">1 filial və kiçik vakansiya axını üçün ideal həll.</p>
+          </div>
+          <div class="flex items-baseline gap-1 py-2 border-y border-borderGray">
+            <span class="text-3xl font-black text-textPrimary font-mono">49 ₼</span>
+            <span class="text-xs text-textTertiary font-medium">/ aylıq</span>
+          </div>
+          <ul class="space-y-2.5 text-xs text-textSecondary">
+            <li class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-[16px] text-emerald-600">check_circle</span>
+              <span>1 Filial (Bakı daxili)</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-[16px] text-emerald-600">check_circle</span>
+              <span>Aylıq 250 CV ekranlaşdırması</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-[16px] text-emerald-600">check_circle</span>
+              <span>Standart Anti-Bot & Temp-Mail filtri</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-[16px] text-emerald-600">check_circle</span>
+              <span>Əsas Excel (.xlsx) ixracı</span>
+            </li>
+            <li class="flex items-center gap-2 text-textTertiary">
+              <span class="material-symbols-outlined text-[16px] text-slate-300">cancel</span>
+              <span class="line-through">Avtomatik Geo-Matching</span>
+            </li>
+            <li class="flex items-center gap-2 text-textTertiary">
+              <span class="material-symbols-outlined text-[16px] text-slate-300">cancel</span>
+              <span class="line-through">Gemini 2.5 AI Chatbot</span>
+            </li>
+          </ul>
+        </div>
+        <button class="select-plan-btn mt-6 w-full py-2.5 rounded-xl border border-borderGray hover:border-brand-600 bg-canvas hover:bg-white text-textPrimary font-semibold text-xs transition-all" data-plan="Starter Paket">
+          Starter Seçin
+        </button>
+      </div>
+
+      <!-- Plan 2: Pro (Featured / Active) -->
+      <div class="bg-surface rounded-2xl p-6 flex flex-col justify-between shadow-xl pricing-card-featured relative">
+        <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-brand-600 text-white font-mono text-[10px] font-bold uppercase tracking-wider shadow-sm flex items-center gap-1">
+          <span class="material-symbols-outlined text-[13px]">verified</span>
+          <span>Ən Çox Seçilən • Cari Paket</span>
+        </div>
+        <div class="space-y-4 pt-1">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider text-brand-600 font-mono">B2B Korporativ</span>
+            <span class="px-2 py-0.5 rounded bg-brand-100 text-brand-800 text-[10.5px] font-bold">Aktiv</span>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-brand-900">Pro Paket</h3>
+            <p class="text-xs text-textSecondary mt-1">Geniş filial şəbəkəsi və intensiv işə qəbul üçün.</p>
+          </div>
+          <div class="flex items-baseline gap-1 py-2 border-y border-brand-100">
+            <span class="text-3xl font-black text-brand-900 font-mono">149 ₼</span>
+            <span class="text-xs text-textTertiary font-medium">/ aylıq</span>
+          </div>
+          <ul class="space-y-2.5 text-xs text-textSecondary">
+            <li class="flex items-center gap-2 font-medium text-textPrimary">
+              <span class="material-symbols-outlined text-[16px] text-brand-600">check_circle</span>
+              <span>15 Filial (Bakı avto geo-matching)</span>
+            </li>
+            <li class="flex items-center gap-2 font-medium text-textPrimary">
+              <span class="material-symbols-outlined text-[16px] text-brand-600">check_circle</span>
+              <span>Limitsiz CV ekranlaşdırması</span>
+            </li>
+            <li class="flex items-center gap-2 font-medium text-textPrimary">
+              <span class="material-symbols-outlined text-[16px] text-brand-600">check_circle</span>
+              <span>Real-vaxt Temp-Mail & Tor bloklama</span>
+            </li>
+            <li class="flex items-center gap-2 font-medium text-textPrimary">
+              <span class="material-symbols-outlined text-[16px] text-brand-600">check_circle</span>
+              <span>Gemini 2.5 Flash AI Chatbot & CV xülasəsi</span>
+            </li>
+            <li class="flex items-center gap-2 font-medium text-textPrimary">
+              <span class="material-symbols-outlined text-[16px] text-brand-600">check_circle</span>
+              <span>Dəbdəbəli Navy Blue Excel (.xlsx) ixracı</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-[16px] text-emerald-600">check_circle</span>
+              <span>Toplu PDF/Word CV avtomatik emal</span>
+            </li>
+          </ul>
+        </div>
+        <button class="select-plan-btn mt-6 w-full py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs shadow-md shadow-brand-500/20 transition-all active:scale-95" data-plan="Pro Paket">
+          Cari Paket (Aktivdir)
+        </button>
+      </div>
+
+      <!-- Plan 3: Enterprise -->
+      <div class="bg-surface border border-borderGray rounded-2xl p-6 flex flex-col justify-between shadow-xs hover:shadow-md transition-shadow">
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider text-textTertiary font-mono">Böyük Holdinqlər</span>
+            <span class="px-2 py-0.5 rounded bg-indigo-50 text-indigo-700 text-[10.5px] font-semibold">Fərdiləşdirilmiş</span>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-textPrimary">Enterprise Korporativ</h3>
+            <p class="text-xs text-textSecondary mt-1">Bütün Azərbaycan filialları, ATS və 1C inteqrasiyası.</p>
+          </div>
+          <div class="flex items-baseline gap-1 py-2 border-y border-borderGray">
+            <span class="text-3xl font-black text-textPrimary font-mono">399 ₼</span>
+            <span class="text-xs text-textTertiary font-medium">/ aylıq</span>
+          </div>
+          <ul class="space-y-2.5 text-xs text-textSecondary">
+            <li class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-[16px] text-emerald-600">check_circle</span>
+              <span>Qeyri-məhdud filial və regionlar</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-[16px] text-emerald-600">check_circle</span>
+              <span>1C: Müəssisə 8.3 & ZUP inteqrasiyası</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-[16px] text-emerald-600">check_circle</span>
+              <span>Xüsusi REST API Girişi & Webhook-lar</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-[16px] text-emerald-600">check_circle</span>
+              <span>Fərdi Gemini AI modeli təlimi</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-[16px] text-emerald-600">check_circle</span>
+              <span>24/7 Şəxsi HR Mühəndisi & SLA Dəstək</span>
+            </li>
+          </ul>
+        </div>
+        <button class="select-plan-btn mt-6 w-full py-2.5 rounded-xl border border-borderGray hover:border-indigo-600 bg-canvas hover:bg-white text-textPrimary font-semibold text-xs transition-all" data-plan="Enterprise Korporativ">
+          Enterprise Seçin
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Back to Candidates Button -->
+    <div class="text-center pt-4">
+      <button id="backToCandidatesBtn" class="px-4 py-2 rounded-lg bg-surface border border-borderGray hover:bg-subtle text-xs font-semibold text-textSecondary hover:text-textPrimary inline-flex items-center gap-2 transition-colors">
+        <span class="material-symbols-outlined text-[16px]">arrow_back</span>
+        <span>Aktiv Namizədlər Cədvəlinə Qayıt</span>
+      </button>
+    </div>
+
+  </main>
+
+  <!-- ========================================================= -->
+  <!-- CORPORATE REGISTRATION & LOGIN MODAL (AUTH MODAL)         -->
+  <!-- ========================================================= -->
+  <div id="authModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs hidden">
+    <div class="bg-surface rounded-2xl border border-borderGray shadow-2xl max-w-md w-full overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+
+      <!-- Modal Header -->
+      <div class="px-5 py-4 border-b border-borderGray bg-subtle flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-brand-800 text-white flex items-center justify-center">
+            <span class="material-symbols-outlined text-[18px]">domain</span>
+          </div>
+          <div>
+            <h3 class="font-bold text-sm text-textPrimary">Korporativ Qeydiyyat & Giriş</h3>
+            <p class="text-[11px] text-textSecondary">Azərbaycan şirkətləri üçün VÖEN identifikasiyası</p>
+          </div>
+        </div>
+        <button id="closeAuthModalBtn" class="text-textTertiary hover:text-textPrimary">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+
+      <!-- Modal Form Body -->
+      <form id="authCompanyForm" class="p-5 space-y-3.5 text-xs">
+
+        <!-- Company Name -->
+        <div class="space-y-1">
+          <label class="font-semibold text-textSecondary flex items-center justify-between">
+            <span>Şirkətin Rəsmi Adı</span>
+            <span class="text-[10px] text-brand-600 font-normal">Hüquqi şəxs</span>
+          </label>
+          <input
+            type="text"
+            id="companyNameInput"
+            required
+            class="w-full h-9 px-3 rounded-lg border border-borderGray bg-canvas text-textPrimary focus:outline-none focus:border-brand-600 font-sans"
+            placeholder="məs: SOCAR Enerji QSC və ya Paşa Holdinq"
+            value="SOCAR Enerji QSC"
+          />
+        </div>
+
+        <!-- VÖEN (Tax ID) -->
+        <div class="space-y-1">
+          <label class="font-semibold text-textSecondary flex items-center justify-between">
+            <span>VÖEN (Vergi Ödəyicisinin Eyniləşdirmə Nömrəsi)</span>
+            <span class="text-[10px] text-emerald-600 font-mono font-medium">10 rəqəmli</span>
+          </label>
+          <input
+            type="text"
+            id="companyVoenInput"
+            maxlength="10"
+            required
+            class="w-full h-9 px-3 rounded-lg border border-borderGray bg-canvas text-textPrimary focus:outline-none focus:border-brand-600 font-mono"
+            placeholder="1402948191"
+            value="1402948191"
+          />
+        </div>
+
+        <!-- Email & Password -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div class="space-y-1">
+            <label class="font-semibold text-textSecondary">Korporativ E-poçt</label>
+            <input
+              type="email"
+              id="companyEmailInput"
+              required
+              class="w-full h-9 px-3 rounded-lg border border-borderGray bg-canvas text-textPrimary focus:outline-none focus:border-brand-600 font-sans"
+              placeholder="hr@socar.az"
+              value="hr@socar.az"
+            />
+          </div>
+          <div class="space-y-1">
+            <label class="font-semibold text-textSecondary">Giriş Şifrəsi</label>
+            <input
+              type="password"
+              id="companyPasswordInput"
+              required
+              class="w-full h-9 px-3 rounded-lg border border-borderGray bg-canvas text-textPrimary focus:outline-none focus:border-brand-600 font-sans"
+              placeholder="••••••••"
+              value="SocarHr2026!"
+            />
+          </div>
+        </div>
+
+        <!-- Branches and Plan -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div class="space-y-1">
+            <label class="font-semibold text-textSecondary">Filial Sayı (Bakı)</label>
+            <input
+              type="number"
+              id="companyBranchesInput"
+              min="1"
+              max="100"
+              required
+              class="w-full h-9 px-3 rounded-lg border border-borderGray bg-canvas text-textPrimary focus:outline-none focus:border-brand-600 font-mono"
+              value="12"
+            />
+          </div>
+          <div class="space-y-1">
+            <label class="font-semibold text-textSecondary">Abunəlik Paketi</label>
+            <select id="companyPlanSelect" class="w-full h-9 px-2 rounded-lg border border-borderGray bg-canvas text-textPrimary focus:outline-none focus:border-brand-600">
+              <option value="Pro Paket">Pro Paket (Tövsiyə olunur)</option>
+              <option value="Starter Paket">Starter Paket</option>
+              <option value="Enterprise Korporativ">Enterprise Korporativ</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="pt-2">
+          <button type="submit" class="w-full py-2.5 rounded-xl bg-brand-800 hover:bg-brand-900 text-white font-bold text-xs shadow-md transition-all active:scale-95 flex items-center justify-center gap-1.5">
+            <span class="material-symbols-outlined text-[16px]">save</span>
+            <span>Məlumatları Saxla & Giriş Et</span>
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- GEMINI API KEY CONFIGURATION MODAL                        -->
+  <!-- ========================================================= -->
+  <div id="geminiKeyModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs hidden">
+    <div class="bg-surface rounded-2xl border border-borderGray shadow-2xl max-w-md w-full overflow-hidden animate-in fade-in duration-150">
+
+      <div class="px-5 py-4 border-b border-borderGray bg-subtle flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-indigo-600 text-[22px]">neurology</span>
+          <div>
+            <h3 class="font-bold text-sm text-textPrimary">Google Gemini AI Konfiqurasiyası</h3>
+            <p class="text-[11px] text-textSecondary">Hired.ai Real Süni İntellekt Beyni</p>
+          </div>
+        </div>
+        <button id="closeGeminiKeyModalBtn" class="text-textTertiary hover:text-textPrimary">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+
+      <div class="p-5 space-y-3.5 text-xs">
+        <p class="text-textSecondary leading-relaxed">
+          Platforma <strong class="text-indigo-600">Google Gemini 2.5 Flash</strong> mühərriki ilə təchiz olunub. İstənilən sualı (texniki, HR, ümumi) cavablandırmaq və CV-ləri tam dəqiqliklə analiz etmək üçün öz açarınızı daxil edə bilərsiniz.
+        </p>
+
+        <div class="space-y-1">
+          <label class="font-semibold text-textSecondary flex items-center justify-between">
+            <span>Gemini API Key</span>
+            <span id="geminiCurrentStatus" class="font-mono text-[10px] text-emerald-600">Quraşdırılıb</span>
+          </label>
+          <input
+            type="password"
+            id="geminiKeyInput"
+            class="w-full h-9 px-3 rounded-lg border border-borderGray bg-canvas text-textPrimary focus:outline-none focus:border-indigo-600 font-mono text-xs"
+            placeholder="AIzaSy..."
+          />
+        </div>
+
+        <div class="p-2.5 bg-indigo-50/60 border border-indigo-100 rounded-lg text-[11px] text-indigo-900 space-y-1">
+          <div class="font-semibold">💡 Pulsuz Açar əldə etmək:</div>
+          <div>Google AI Studio (aistudio.google.com) üzərindən dərhal pulsuz API key götürə bilərsiniz.</div>
+        </div>
+
+        <div class="flex items-center justify-end gap-2 pt-2">
+          <button id="cancelGeminiKeyBtn" class="px-3 py-1.5 rounded-lg border border-borderGray text-textSecondary hover:bg-subtle font-medium">
+            Bağla
+          </button>
+          <button id="saveGeminiKeyBtn" class="px-4 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-semibold flex items-center gap-1.5 transition-colors">
+            <span class="material-symbols-outlined text-[15px]">check</span>
+            <span>Açarı Saxla</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- CANDIDATE DETAIL DRAWER / MODAL (INSPECTION & OVERRIDE)   -->
+  <!-- ========================================================= -->
+  <div id="candidateDetailDrawer" class="fixed inset-0 z-50 overflow-hidden hidden" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+    <div class="absolute inset-0 bg-slate-900/40 backdrop-blur-xs transition-opacity" id="drawerBackdrop"></div>
+    <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+      <div class="pointer-events-auto w-screen max-w-md xl:max-w-lg bg-surface shadow-2xl border-l border-borderGray flex flex-col">
+
+        <!-- Drawer Header -->
+        <div class="px-5 py-3.5 bg-subtle border-b border-borderGray flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-[20px] text-brand-700">badge</span>
+            <h3 class="font-semibold text-sm text-textPrimary" id="drawerTitle">Namizəd Profili & AI Analizi</h3>
+          </div>
+          <button id="closeDrawerBtn" class="w-7 h-7 rounded-full hover:bg-slate-200 text-textSecondary flex items-center justify-center transition-colors">
+            <span class="material-symbols-outlined text-[18px]">close</span>
+          </button>
+        </div>
+
+        <!-- Drawer Content Body -->
+        <div class="flex-1 overflow-y-auto p-5 space-y-4" id="drawerBody">
+          <!-- Dynamic details injected by script.js -->
+        </div>
+
+        <!-- Drawer Footer Actions -->
+        <div class="p-4 bg-subtle border-t border-borderGray flex items-center justify-between gap-2" id="drawerFooter">
+          <!-- Action buttons injected by script.js -->
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- BULK UPLOAD CV MODAL                                      -->
+  <!-- ========================================================= -->
+  <div id="bulkUploadModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs hidden">
+    <div class="bg-surface rounded-xl border border-borderGray shadow-2xl max-w-lg w-full overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+      <div class="px-5 py-4 border-b border-borderGray flex items-center justify-between bg-subtle">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-brand-700 text-[20px]">upload_file</span>
+          <h3 class="font-semibold text-sm text-textPrimary">Toplu CV Yüklə (PDF / Word)</h3>
+        </div>
+        <button id="closeBulkUploadBtn" class="text-textTertiary hover:text-textPrimary">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+
+      <div class="p-5 space-y-4">
+
+        <!-- Target Branch selection for uploaded CVs -->
+        <div class="space-y-1">
+          <label class="text-xs font-semibold text-textSecondary flex items-center justify-between">
+            <span>Hədəf Filial Seçimi</span>
+            <span class="text-[10px] text-brand-600 font-mono">Geo-Matching</span>
+          </label>
+          <select id="uploadBranchSelect" class="w-full h-8 px-2 rounded-lg border border-borderGray bg-canvas text-xs text-textPrimary focus:outline-none focus:border-brand-600">
+            <option value="Nərimanov Filialı">Nərimanov Filialı (N.Nərimanov m/s)</option>
+            <option value="Nizami Filialı">Nizami Filialı (Nizami m/s)</option>
+            <option value="Gənclik Filialı">Gənclik Filialı (Gənclik m/s)</option>
+            <option value="28 May Filialı">28 May Filialı (28 May m/s)</option>
+            <option value="Yasamal Filialı">Yasamal Filialı (Elmlər m/s)</option>
+            <option value="Sahil Filialı">Sahil Filialı (Sahil m/s)</option>
+          </select>
+        </div>
+
+        <div id="dropZone" class="border-2 border-dashed border-borderDark hover:border-brand-600 rounded-lg p-6 flex flex-col items-center justify-center text-center cursor-pointer transition-colors bg-canvas">
+          <span class="material-symbols-outlined text-brand-600 text-[36px] mb-2">cloud_upload</span>
+          <p class="text-xs font-semibold text-textPrimary">Faylları bura sürükləyin və ya kompüterdən seçin</p>
+          <p class="text-[11px] text-textTertiary mt-1">Dəstəklənir: PDF (.pdf), Word (.docx, .doc), TXT</p>
+          <input type="file" id="cvFileInput" multiple accept=".pdf,.docx,.doc,.txt" class="hidden" />
+          <button type="button" onclick="document.getElementById('cvFileInput').click()" class="mt-3 px-3 py-1.5 rounded bg-brand-800 text-white text-xs font-medium hover:bg-brand-900">
+            Faylları Seç
+          </button>
+        </div>
+
+        <div id="uploadProgressContainer" class="hidden space-y-2">
+          <div class="flex items-center justify-between text-xs font-medium text-textSecondary">
+            <span id="uploadStatusText">Süni intellekt emalı gedir...</span>
+            <span id="uploadPercent" class="font-mono text-brand-600 font-bold">0%</span>
+          </div>
+          <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+            <div id="uploadProgressBar" class="bg-brand-600 h-full w-0 transition-all duration-300"></div>
+          </div>
+          <p class="text-[11px] text-textTertiary">Temp-mail domenləri, bot axını və Bakı filialı geo-uyğunluğu təhlil olunur...</p>
+        </div>
+
+        <div id="uploadFileList" class="max-h-36 overflow-y-auto space-y-1.5 text-xs text-textSecondary">
+          <!-- Uploaded files list -->
+        </div>
+      </div>
+
+      <div class="px-5 py-3 bg-subtle border-t border-borderGray flex items-center justify-end gap-2">
+        <button id="cancelUploadBtn" class="px-3 py-1.5 rounded border border-borderGray bg-white text-xs text-textSecondary hover:bg-slate-50 font-medium">
+          Ləğv et
+        </button>
+        <button id="startAiScreeningBtn" class="px-4 py-1.5 rounded bg-brand-700 hover:bg-brand-800 text-white text-xs font-medium flex items-center gap-1.5 disabled:opacity-50" disabled>
+          <span class="material-symbols-outlined text-[15px]">psychology</span>
+          <span>AI Ekranlaşdırmanı Başlat</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- FLOATING INTERACTIVE AI CHATBOT (HIRED.AI)                -->
+  <!-- ========================================================= -->
+  <aside class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end pointer-events-none">
+
+    <!-- Expanded Chat Widget Card -->
+    <div id="aiChatCard" class="pointer-events-auto mb-2 w-[calc(100vw-2rem)] sm:w-96 bg-surface rounded-xl border border-brand-500/40 shadow-2xl overflow-hidden flex flex-col max-h-[520px] transition-all duration-200 transform origin-bottom-right hidden">
+
+      <!-- Chat Header -->
+      <div class="px-4 py-3 bg-brand-800 text-white flex items-center justify-between shadow-sm">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center">
+            <span class="material-symbols-outlined text-[18px] text-brand-200">neurology</span>
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <span class="font-bold text-xs leading-none">Hired.ai</span>
+              <span class="text-[10px] text-brand-200 font-mono">Gemini 2.5 Brain</span>
+            </div>
+            <div class="flex items-center gap-1 mt-0.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              <span class="text-[10px] text-brand-100 font-medium">Ağıllı HR Köməkçisi • Onlayn</span>
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center gap-1">
+          <button id="openGeminiKeyChatBtn" class="w-6 h-6 rounded hover:bg-white/10 flex items-center justify-center text-white/80 hover:text-white" title="Gemini API Key">
+            <span class="material-symbols-outlined text-[15px]">key</span>
+          </button>
+          <button id="minimizeChatBtn" class="w-6 h-6 rounded hover:bg-white/10 flex items-center justify-center text-white/80 hover:text-white transition-colors">
+            <span class="material-symbols-outlined text-[16px]">close</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Chat Scroll Messages Area -->
+      <div id="chatMessages" class="flex-1 overflow-y-auto p-3.5 space-y-3 bg-canvas text-xs overscroll-contain">
+
+        <!-- Welcome Message from Hired.ai -->
+        <div class="flex items-start gap-2 max-w-[92%]">
+          <div class="w-6 h-6 rounded bg-brand-800 text-white flex items-center justify-center shrink-0 mt-0.5 font-bold text-[10px]">
+            AI
+          </div>
+          <div class="bg-surface border border-borderGray p-3 rounded-xl rounded-tl-none shadow-xs space-y-2 text-textPrimary">
+            <p class="leading-relaxed">
+              Salam! Mən <strong class="text-brand-700">Hired.ai</strong>, sizin rəsmi süni intellekt köməkçinizəm. Şirkətinizə gələn CV axınını süzmək, temp-mail və botları bloklamaq, həmçinin istənilən HR və texniki suallarınızı cavablandırmaq üçün buradayam.
+            </p>
+            <div class="bg-subtle p-2 rounded text-[11px] space-y-1 text-textSecondary font-medium">
+              <div>1. 🛡️ Gələn CV-lər spam & temp-mail filtrlərindən keçir.</div>
+              <div>2. 📍 Avtomatik geo-məsafə Bakı filiallarına görə ölçülür.</div>
+              <div>3. ⚖️ Süni intellekt güvən skoru hesablayıb saxtaları eliminə edir.</div>
+            </div>
+            <span class="text-[10px] text-textTertiary block text-right font-mono">İndi</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Quick Prompt Suggestion Pills -->
+      <div class="px-3 py-2 bg-subtle border-t border-borderGray/70">
+        <span class="text-[10px] uppercase font-mono text-textTertiary block mb-1.5 font-semibold">Sürətli Əmrlər:</span>
+        <div class="flex flex-wrap gap-1">
+          <button class="quick-chip px-2 py-1 rounded bg-surface hover:bg-brand-50 border border-borderGray text-textSecondary hover:text-brand-700 text-[11px] transition-colors flex items-center gap-1" data-query="Nərimanov filialına uyğun 3 namizəd tap">
+            <span class="material-symbols-outlined text-[13px] text-brand-600">near_me</span>
+            <span>Nərimanov filialına 3 namizəd</span>
+          </button>
+          <button class="quick-chip px-2 py-1 rounded bg-surface hover:bg-rose-50 border border-borderGray text-textSecondary hover:text-rose-700 text-[11px] transition-colors flex items-center gap-1" data-query="Eliminə olunmuş CV-ləri yoxla">
+            <span class="material-symbols-outlined text-[13px] text-rose-600">security</span>
+            <span>Eliminə CV-ləri yoxla</span>
+          </button>
+          <button class="quick-chip px-2 py-1 rounded bg-surface hover:bg-brand-50 border border-borderGray text-textSecondary hover:text-brand-700 text-[11px] transition-colors flex items-center gap-1" data-query="Zəif tərəfləri müqayisə et">
+            <span class="material-symbols-outlined text-[13px] text-brand-600">balance</span>
+            <span>Zəif tərəfləri müqayisə et</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Chat Input Field -->
+      <form id="chatForm" class="p-2.5 bg-surface border-t border-borderGray flex items-center gap-2">
+        <input
+          type="text"
+          id="chatInput"
+          class="flex-1 h-8 px-2.5 rounded border border-borderGray bg-canvas text-xs text-textPrimary placeholder:text-textTertiary focus:outline-none focus:border-brand-600"
+          placeholder="Hired.ai-ya sual verin və ya əmr daxil edin..."
+        />
+        <button type="submit" class="w-8 h-8 rounded bg-brand-800 hover:bg-brand-900 text-white flex items-center justify-center shrink-0 transition-all shadow-xs active:scale-95">
+          <span class="material-symbols-outlined text-[16px]">send</span>
+        </button>
+      </form>
+
+    </div>
+
+    <!-- Floating Toggle Pill -->
+    <button id="toggleBotBtn" class="pointer-events-auto h-11 px-4 rounded-full bg-brand-800 hover:bg-brand-900 text-white shadow-xl flex items-center gap-2 active:scale-95 transition-all border border-white/20">
+      <span class="material-symbols-outlined text-[19px]">smart_toy</span>
+      <span class="font-semibold text-xs tracking-tight">Hired.ai 💬</span>
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+    </button>
+
+  </aside>
+
+  <!-- Application Logic -->
+  <script src="script.js"></script>
+</body>
+</html>
