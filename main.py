@@ -571,8 +571,13 @@ def ask_gemini_brain(prompt: str, context: Optional[str] = None) -> Optional[str
         full_prompt += f"Platforma Konteksti:\n{context}\n\n"
     full_prompt += f"İstifadəçi Sorğusu: {prompt}"
 
-    # Try gemini-2.5-flash or gemini-2.0-flash
-    models_to_try = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash"]
+    # Model priority list
+    models_to_try = [
+        "gemini-3.1-flash-lite",
+        "gemini-3.5-flash-lite",
+        "gemini-2.5-pro",
+        "gemini-2.5-flash"
+    ]
     for model_name in models_to_try:
         try:
             response = client.models.generate_content(
@@ -805,7 +810,7 @@ def chat_endpoint(req: ChatMessage):
     if gemini_answer:
         return {
             "response": gemini_answer,
-            "engine": "Gemini 2.5 Flash",
+            "engine": "Gemini 3.1 Flash",
             "appliedFilter": None
         }
 
